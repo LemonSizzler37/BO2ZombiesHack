@@ -13,7 +13,7 @@ struct Player
 	int MagAmmo[17]; 	// 0x03F8
 	char pad_043C[0x4]; 	// 0x043C
 	int ClipAmmo[14]; 	// 0x0440
-	char pad_0378[0x50D4]; 	// 0x0478
+	char pad_0478[0x50D4]; 	// 0x0478
 	char Username; 		// 0x554C
 	char pad_554D[0x90]; 	// 0x554D
 	int Money; 		// 0x55DD
