@@ -6,6 +6,9 @@
 #include "Vector.hpp"
 #include "QAngle.hpp"
 
+#define RADIANTODEGREE (float)(180.0f / 3.14159f)
+#define DEGREETORADIAN (float)(3.14159f / 180.0f)
+
 struct t6zmVariables 
 {
 	// Player:
@@ -29,7 +32,7 @@ HMODULE hMod = 0;
 DWORD CALLBACK deepwebhax()
 {
 	var.viewAngles =		(struct QAngle*)0x2D3EFB3C;
-	var.unobfuscateVector = (struct QAngle*)0x1276720;
+	var.unobfuscateVector = 	(struct QAngle*)0x1276720;
 	var.startOfPlayer =		(Player*)0x02346A88;
 
 	var.zombieAmount =		(int*)0x103DAC8;
@@ -68,8 +71,8 @@ DWORD CALLBACK deepwebhax()
 
 			if (deltaVecLength != FLT_MAX)
 			{
-				var.viewAngles->pitch = -asinf(deltaVec.z / (float)deltaVecLength) * (float)(180.0f / 3.14159) - var.unobfuscateVector->pitch;
-				var.viewAngles->yaw = atan2f(deltaVec.y, deltaVec.x) * (float)(180.0f / 3.14159) - var.unobfuscateVector->yaw;
+				var.viewAngles->pitch = -asinf(deltaVec.z / (float)deltaVecLength) * RADIANTODEGREE - var.unobfuscateVector->pitch;
+				var.viewAngles->yaw = atan2f(deltaVec.y, deltaVec.x) * RADIANTODEGREE - var.unobfuscateVector->yaw;
 			}
 		}
 
@@ -79,9 +82,9 @@ DWORD CALLBACK deepwebhax()
 		if ((GetAsyncKeyState(VK_UP) & 1))
 		{
 			QAngle angles = *var.viewAngles + *var.unobfuscateVector;
-			local->Postition.x += cosf((angles.yaw) / (float)(180.0f / 3.14159)) * 100.0f;
-			local->Postition.y += sinf((angles.yaw) / (float)(180.0f / 3.14159)) * 100.0f;
-			local->Postition.z += -sinf((angles.pitch) / (float)(180.0f / 3.14159)) * 150.0f;
+			local->Postition.x += cosf((angles.yaw) * DEGREETORADIAN) * 100.0f;
+			local->Postition.y += sinf((angles.yaw) * DEGREETORADIAN) * 100.0f;
+			local->Postition.z += -sinf((angles.pitch) * DEGREETORADIAN) * 150.0f;
 		}
 
 		if ((GetAsyncKeyState(VK_HOME) & 1))
